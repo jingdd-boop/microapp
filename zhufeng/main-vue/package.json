@@ -1,5 +1,5 @@
 {
-  "name": "parent-vue",
+  "name": "main-vue",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "router": "^1.3.7",
-    "single-spa": "^5.9.3",
-    "vue": "^2.6.14"
+    "vue": "^2.6.14",
+    "vue-router": "3.0.2",
+    "single-spa": "^5.9.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

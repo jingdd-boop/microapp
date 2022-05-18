@@ -1,4 +1,4 @@
-# parent-vue
+# main-vue
 
 ## Project setup
 ```

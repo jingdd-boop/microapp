@@ -6,7 +6,7 @@ import singleSpaVue from 'single-spa-vue';
 Vue.config.productionTip = false;
 
 const appOptions = {
-    el: '#vue', //挂载到父应用中的id为vue的标签中
+    el: '#app', //挂载到父应用中的id为vue的标签中
     router,
     render: (h) => h(App),
 };

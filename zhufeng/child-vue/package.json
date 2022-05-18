@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "router": "^1.3.7",
+    "vue-router": "3.0.2",
     "single-spa-vue": "^2.5.1",
     "vue": "^2.6.14"
   },
