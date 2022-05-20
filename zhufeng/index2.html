@@ -36,7 +36,7 @@
                 })
             }
 
-            inactive() {
+            inactive() { // 失活状态
                 // 非激活状态，要把属性，有变化的地方先存储起来
                 for(const prop in window) {
                     if (window.hasOwnProperty(prop)) {
@@ -50,6 +50,7 @@
         }
         let snadbox = new SnapshotSandbox();
 
+        // 应用的运行 从开始到结束，切换后不会影响到全局
         ((window) => {
             window.a = 1;
             window.b = 2;
@@ -60,7 +61,10 @@
             snadbox.active();
             console.log(window.a,window.b);
         })(snadbox.proxy) // snadbox.proxy 就是window
-     // 1.17
+     // 如果是多应用就不能使用这种方法了 需要使用es6 proxy
+     // 代理沙箱，可以事项多应用沙箱，把不填的应用用不同的代理
+
+
 
     </script>
 </body>
