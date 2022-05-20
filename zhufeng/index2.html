@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <p>hello word</p> -->
+    <div id="shadow"></div>
+
+    <script>
+        // 如果应用加载刚开始的时候加载a应用 window.a 跳转到b应用 （window.a也可以被获取到）
+        // 全局被污染
+        // 单个应用切换，怎么实现隔离，a切换到b，创造一个干净的环境给子应用使用，当切换时，可以选择丢弃属性和恢复属性
+        // js沙箱 proxy
+
+        //第一种，快照沙箱，之前拍一张，之后拍一张，做对比，将区别保存保存起来，再回到一年前
+        class SnapshotSandbox{
+            constructor () {
+                this.proxy = window; // window属性
+                this.modifyPropsMap = {};// 记录在window上的修改
+                this.active(); // 激活状态
+            }
+
+            active() {
+                this.windowSnapshot = {};// 拍照
+                for(const prop in window) { // 遍历window的属性
+                    if (window.hasOwnProperty(prop)) {
+                        this.windowSnapshot[prop] = window[prop]; // 拍个照
+                    }
+                }
+                Object.keys(this.modifyPropsMap).forEach(p => {
+                    window[p] = this.modifyPropsMap[p]; // 恢复之前保存的属性
+                })
+            }
+
+            inactive() {
+                // 非激活状态，要把属性，有变化的地方先存储起来
+                for(const prop in window) {
+                    if (window.hasOwnProperty(prop)) {
+                        if (window[prop] !== this.windowSnapshot[prop]) {
+                            this.modifyPropsMap[prop] = window[prop];  // 不相同的地方，存储起来
+                            window[prop] = this.windowSnapshot[prop]; // 此时的状态，拍一个快照
+                        }
+                    }
+                }
+            }
+        }
+        let snadbox = new SnapshotSandbox();
+
+        ((window) => {
+            window.a = 1;
+            window.b = 2;
+
+            console.log(window.a,window.b);
+            snadbox.inactive();
+            console.log(window.a,window.b);
+            snadbox.active();
+            console.log(window.a,window.b);
+        })(snadbox.proxy) // snadbox.proxy 就是window
+     // 1.17
+
+    </script>
+</body>
+</html>

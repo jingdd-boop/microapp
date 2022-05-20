@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>hello word</p>
+    <div id="shadow"></div>
+
+    <script>
+        let shadowDOM =  shadow.attachShadow({mode:'closed'});// 外界无法访问 shadowdom
+
+        let pElem = document.createElement('p');
+        pElem.innerHTML = 'hell';
+
+        let styleElm = document.createElement('style');
+
+        styleElm.textContent = `p{color:red}`;
+        shadowDOM.appendChild(styleElm);
+        shadowDOM.appendChild(pElem);
+
+        document.body.appendChild(pElem)
+
+
+    </script>
+</body>
+</html>

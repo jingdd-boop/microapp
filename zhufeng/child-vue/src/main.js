@@ -16,6 +16,16 @@ const vueLifeCycle = singleSpaVue({
     appOptions,
 });
 
+// 如果是父应用引用我
+if (window.singleSpaNavigate) {
+    // eslint-disable-next-line no-undef
+    __webpack_public_path__ = 'http://localhost:10000/';
+}
+
+if (!window.singleSpaNavigate) {
+    delete appOptions.el;
+    new Vue(appOptions).$mount('#app');
+}
 // 协议接入 子应用定义了协议，父应用调用这些方法
 export const bootstrap = vueLifeCycle.bootstrap;
 export const mount = vueLifeCycle.mount;
